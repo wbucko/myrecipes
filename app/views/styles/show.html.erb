@@ -1,4 +1,4 @@
-<%= render 'shared/page_title', title: "All Recipes" %>
+<%= render 'shared/page_title', title: "Recipes for #{@style.name} food" %>
 
 <ul class="nav nav-tabs">
     <li class="active">
@@ -9,9 +9,9 @@
     </li>
 </ul>
 
-<%= will_paginate %>
+<%= will_paginate @recipes %>
 
-<% @recipes.each do |r| %>
+<% @style.recipes.each do |r| %>
     <div class="row">
         <div class="col-md-2">
             <section class="chef_info center">
@@ -22,12 +22,8 @@
         <div class="col-lg-6 well">
             <h4><%= link_to r.name, recipe_path(r) %></h4>
             <p><%= r.summary %></p>
-            <% if r.styles.any? %>
-              <p>Styles: <%= render r.styles %></p>
-            <% end %>
-            <% if r.ingredients.any? %>
-              <p>ingredients: <%= render r.ingredients %></p>
-            <% end %>
+            <p>Styles: <%= render r.styles %></p>
+            <p>ingredients: <%= render r.ingredients %></p>
             <p>
                 <span class="quiet"><small>created: <%= time_ago_in_words(r.created_at) %> ago,
                 </small></span>
@@ -50,4 +46,4 @@
     <hr/>
 <% end %>
 
-<%= will_paginate %>
+<%= will_paginate @recipes %>
